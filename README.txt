@@ -23,7 +23,7 @@ Este repositório reúne exemplos práticos de uso do Excel como ferramenta de a
 - Indicadores de acompanhamento patrimonial e rendimento
 
 📁 Arquivo:
-- `Planilhas/FII_Investimentos.xlsx`
+- `Planilhas/Planilha de Investimentos.xlsx`
 
 ---
 
