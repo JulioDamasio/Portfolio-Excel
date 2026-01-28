@@ -1,0 +1,57 @@
+Colocar esse primeiro codigo na pasta "Microsoft Outlook Object" no arquivo "ThisOutlookSession", para que toda vez que você entrar no outlook, a macro ser ativada
+
+Private Sub Application_Startup()
+    MoverAnexosDaPastaPlanilhasEExcluirEmails
+End Sub
+
+
+Codigo da macro que baixa os anexos de uma Subpasta da caixa de entrada e envia para uma pasta a sua escolha 
+
+
+Sub MoverAnexosDaPastaPlanilhasEExcluirEmails()
+    Dim ns As Outlook.NameSpace
+    Dim inboxFolder As Outlook.MAPIFolder
+    Dim subFolder As Outlook.MAPIFolder
+    Dim items As Outlook.items
+    Dim mailItem As Outlook.mailItem
+    Dim attachment As Outlook.attachment
+    Dim saveFolder As String
+    
+    ' Defina o caminho para a pasta onde você deseja salvar os anexos
+    saveFolder = "C:\Users\juliodamasio\Documents\TED - NC e PF"
+    
+    ' Inicializa o Outlook
+    Set ns = Application.GetNamespace("MAPI")
+    
+    ' Obtém a referência à pasta "Planilhas" na caixa de entrada
+    Set inboxFolder = ns.GetDefaultFolder(olFolderInbox)
+    For Each subFolder In inboxFolder.Folders
+        If subFolder.Name = "Planilhas" Then
+            Set items = subFolder.items
+            Exit For
+        End If
+    Next subFolder
+    
+    ' Verifica cada e-mail na pasta "Planilhas"
+    For Each mailItem In items
+        If mailItem.Class = olMail Then
+            Debug.Print "Processando e-mail de: " & mailItem.SenderEmailAddress
+            
+            ' Move os anexos para a pasta especificada
+            For Each attachment In mailItem.Attachments
+                Dim targetFilePath As String
+                targetFilePath = saveFolder & "\" & attachment.FileName
+                
+                Debug.Print "Salvando anexo: " & attachment.FileName
+                attachment.SaveAsFile targetFilePath
+            Next attachment
+            
+            ' Excluir o e-mail após o download dos anexos
+            mailItem.Delete
+        End If
+    Next mailItem
+End Sub
+
+
+
+
