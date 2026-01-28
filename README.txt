@@ -29,8 +29,7 @@ Este repositório reúne exemplos práticos de uso do Excel como ferramenta de a
 
 ## 🛠️ Tecnologias Utilizadas
 - Microsoft Excel
-- VBA (Visual Basic for Applications)
-- Outlook
+
 
 ## 🎯 Objetivo
 Demonstrar habilidades em:
